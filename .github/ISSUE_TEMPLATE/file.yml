@@ -1,0 +1,31 @@
+name: File Update
+about: Update your file here.
+assignees: ["ShinonomeSetsuna"]
+labels: ["file-update"]
+title: "[File Update]"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Input your Title here.
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: A short, descriptive title for your file.
+      placeholder: "Add a title for your file"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ## Input your context here.
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Your file context.
+      placeholder: Input your context here."
+    validations:
+      required: true
