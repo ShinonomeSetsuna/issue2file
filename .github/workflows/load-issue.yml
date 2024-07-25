@@ -17,10 +17,10 @@ jobs:
         id: extract_data
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
-          TITLE=$(echo "$ISSUE_BODY" | awk '/### Title/{flag=1;next}/### Content/{flag=0}flag')
-          CONTENT=$(echo "$ISSUE_BODY" | awk '/### Content/{flag=1;next}flag')
-          TITLE=$(echo "$TITLE" | awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print}')
-          CONTENT=$(echo "$CONTENT" | awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print}')
+          TITLE="$ISSUE_BODY" | awk '/### Title/{flag=1;next}/### Content/{flag=0}flag'
+          CONTENT="$ISSUE_BODY" | awk '/### Content/{flag=1;next}flag'
+          TITLE="$TITLE" | awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print}'
+          CONTENT="$CONTENT" | awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print}'
           echo $TITLE
           echo "./generated_issues/${TITLE}.txt"
           ls ./generated_issues
