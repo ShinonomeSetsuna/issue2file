@@ -3,18 +3,24 @@ on:
   issues:
     types: [opened]
 
+permissions:
+  contents: write  # Ensure actions can push changes to the repository
+
 jobs:
   process_issue:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
       - name: Extract issue data
         id: extract_data
         run: |
-          echo "::set-output name=issue_title::$(echo '${{ github.event.issue.body }}' | grep 'title:' | sed 's/title: //')"
-          echo "::set-output name=issue_content::$(echo '${{ github.event.issue.body }}' | grep 'content:' | sed 's/content: //')"
+          ISSUE_BODY="${{ github.event.issue.body }}"
+          TITLE=$(echo "$ISSUE_BODY" | grep -Eo 'title:.*' | sed 's/title: //')
+          CONTENT=$(echo "$ISSUE_BODY" | grep -Eo 'content:.*' | sed 's/content: //')
+          echo "::set-output name=issue_title::$TITLE"
+          echo "::set-output name=issue_content::$CONTENT"
 
       - name: Create file from issue content
         env:
@@ -22,14 +28,15 @@ jobs:
           ISSUE_CONTENT: ${{ steps.extract_data.outputs.issue_content }}
         run: |
           FILE_NAME="${ISSUE_TITLE}.txt"
-          echo "${ISSUE_CONTENT}" > $FILE_NAME
-          mkdir ./generated_issues
-          mv $FILE_NAME ./generated_issues/
+          mkdir -p ./generated_issues
+          echo "${ISSUE_CONTENT}" > ./generated_issues/$FILE_NAME
 
       - name: Commit changes
         run: |
-          git config --local user.email "github-actions@github.com"
-          git config --local user.name "github-actions"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add ./generated_issues/
           git commit -m "Add new issue: ${{ steps.extract_data.outputs.issue_title }}"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
