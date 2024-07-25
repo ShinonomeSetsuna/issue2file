@@ -23,7 +23,6 @@ jobs:
           CONTENT=$(echo "$CONTENT" | awk '{$1=$1;print}')
           FILE_NAME=$(echo "${TITLE}.txt")
           echo ./generated_issues/$FILE_NAME
-          ls ./generated_issues
           mkdir -p ./generated_issues
           echo "${CONTENT}" > ./generated_issues/$FILE_NAME
           
