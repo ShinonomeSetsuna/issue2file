@@ -17,8 +17,8 @@ jobs:
         id: extract_data
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
-          TITLE="$ISSUE_BODY" | perl -0ne 'print "$1" if /(?<=### Title\n\n)(.*)\n\s*(?:### Content\n\n)(.*)\n\s*$/s'
-          CONTENT="$ISSUE_BODY" | perl -0ne 'print "$2" if /(?<=### Title\n\n)(.*)\n\s*(?:### Content\n\n)(.*)\n\s*$/s'
+          TITLE=$(echo "$ISSUE_BODY" | perl -0ne 'print "$1" if /(?<=### Title\n\n)(.*)\n\s*(?:### Content\n\n)(.*)\n\s*$/s')
+          CONTENT=$(echo "$ISSUE_BODY" | perl -0ne 'print "$2" if /(?<=### Title\n\n)(.*)\n\s*(?:### Content\n\n)(.*)\n\s*$/s')
           echo $TITLE
           echo "./generated_issues/${TITLE}.txt"
           ls ./generated_issues
