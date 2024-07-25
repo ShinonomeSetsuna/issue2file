@@ -17,8 +17,8 @@ jobs:
         id: extract_data
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
-          TITLE=$(echo "$ISSUE_BODY" | grep -Eo 'title:.*' | sed 's/title: //' | tr -d '\r')
-          CONTENT=$(echo "$ISSUE_BODY" | grep -Eo 'content:.*' | sed 's/content: //' | tr -d '\r')
+          TITLE=$(awk '/###Title/{flag=1;next}/###Content/{flag=0}flag' "$ISSUE_BODY")
+          CONTENT=$(awk '/###Content/{flag=1;next}flag' "$ISSUE_BODY")
           echo "ISSUE_TITLE=$TITLE" >> $GITHUB_ENV
           echo "ISSUE_CONTENT=$CONTENT" >> $GITHUB_ENV
 
