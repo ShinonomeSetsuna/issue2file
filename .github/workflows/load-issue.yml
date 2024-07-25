@@ -17,8 +17,8 @@ jobs:
         id: extract_data
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
-          TITLE=$(echo "$ISSUE_BODY" | grep -zPo '(?<=### Title)\s*(.*)\n\n(?=### Content)')
-          CONTENT=$(echo "$ISSUE_BODY" | grep -zPo '(?<=### Content)\s*(.*)')
+          TITLE="$ISSUE_BODY" | grep -zPo '(?<=### Title)\s*(.*)\n\n(?=### Content)'
+          CONTENT="$ISSUE_BODY" | grep -zPo '(?<=### Content)\s*(.*)'
           echo $TITLE
           echo "./generated_issues/${TITLE}.txt"
           ls ./generated_issues
