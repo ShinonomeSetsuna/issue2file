@@ -19,6 +19,8 @@ jobs:
           ISSUE_BODY="${{ github.event.issue.body }}"
           TITLE=$(echo "$ISSUE_BODY" | awk '/### Title/{flag=1;next}/### Content/{flag=0}flag')
           CONTENT=$(echo "$ISSUE_BODY" | awk '/### Content/{flag=1;next}flag')
+          TITLE=$(echo "$TITLE" | awk '{$1=$1;print}')
+          CONTENT==$(echo "$CONTENT" | awk '{$1=$1;print}')
           FILE_NAME=$(echo "${TITLE}.txt")
           mkdir -p ./generated_issues
           echo "${CONTENT}" > ./generated_issues/$FILE_NAME
