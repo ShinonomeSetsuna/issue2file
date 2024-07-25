@@ -22,9 +22,9 @@ body:
       value: |
         ## Input your context here.
   - type: textarea
-    id: context
+    id: content
     attributes:
-      label: Context
+      label: Content
       description: Your file context.
       placeholder: Input your context here."
     validations:
