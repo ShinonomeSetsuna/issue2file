@@ -19,18 +19,10 @@ jobs:
           ISSUE_BODY="${{ github.event.issue.body }}"
           TITLE=$(echo "$ISSUE_BODY" | awk '/###Title/{flag=1;next}/###Content/{flag=0}flag')
           CONTENT=$(echo "$ISSUE_BODY" | awk '/###Content/{flag=1;next}flag')
-          echo "ISSUE_TITLE=$TITLE" >> $GITHUB_ENV
-          echo "ISSUE_CONTENT=$CONTENT" >> $GITHUB_ENV
-
-      - name: Create file from issue content
-        env:
-          ISSUE_TITLE: ${{ env.ISSUE_TITLE }}
-          ISSUE_CONTENT: ${{ env.ISSUE_CONTENT }}
-        run: |
-          FILE_NAME="${ISSUE_TITLE}.txt"
+          FILE_NAME="${TITLE}.txt"
           mkdir -p ./generated_issues
-          echo "${ISSUE_CONTENT}" > ./generated_issues/$FILE_NAME
-
+          echo "${CONTENT}" > ./generated_issues/$FILE_NAME
+          
       - name: Commit changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
