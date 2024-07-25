@@ -22,10 +22,10 @@ jobs:
           TITLE=$(echo "$TITLE" | awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print}')
           CONTENT=$(echo "$CONTENT" | awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print}')
           echo $TITLE
-          echo ./generated_issues/$TITLE.txt
+          echo "./generated_issues/${TITLE}.txt"
           ls ./generated_issues
           mkdir -p ./generated_issues
-          echo "${CONTENT}" > ./generated_issues/$TITLE.txt
+          echo "${CONTENT}" > "./generated_issues/${TITLE}.txt"
           
       - name: Commit changes
         run: |
