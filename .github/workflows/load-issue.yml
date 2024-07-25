@@ -23,6 +23,7 @@ jobs:
         run: |
           FILE_NAME="${ISSUE_TITLE}.txt"
           echo "${ISSUE_CONTENT}" > $FILE_NAME
+          mkdir ./generated_issues
           mv $FILE_NAME ./generated_issues/
 
       - name: Commit changes
