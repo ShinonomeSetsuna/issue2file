@@ -16,7 +16,7 @@ body:
       placeholder: "请输入作品标题。"
     validations:
       required: true
-  type: markdown
+  - type: markdown
     attributes:
       value: |
         ## 在此处输入作者。
