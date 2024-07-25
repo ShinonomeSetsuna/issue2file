@@ -20,10 +20,10 @@ jobs:
           TITLE=$(echo "$ISSUE_BODY" | grep -zPo '(?<=### Title)\s*(.*)\n\n(?=### Content)')
           CONTENT=$(echo "$ISSUE_BODY" | grep -zPo '(?<=### Content)\s*(.*)')
           echo $TITLE
-          echo ./generated_issues/$TITLE.txt
+          echo "./generated_issues/${TITLE}.txt"
           ls ./generated_issues
           mkdir -p ./generated_issues
-          echo "${CONTENT}" > ./generated_issues/$TITLE.txt
+          echo "${CONTENT}" > "./generated_issues/${TITLE}.txt"
           
       - name: Commit changes
         run: |
