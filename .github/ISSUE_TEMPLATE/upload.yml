@@ -35,6 +35,6 @@ body:
     id: content
     attributes:
       label: 正文
-      placeholder: 请输入正文。"
+      placeholder: 请输入正文。
     validations:
       required: true
