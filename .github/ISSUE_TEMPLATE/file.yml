@@ -1,31 +1,40 @@
-name: File Update
-description: Update your file here.
+name: 上传作品
+description: 在此处上传您的作品。
 assignees: ["ShinonomeSetsuna"]
-labels: ["file-update"]
-title: "[File Update]"
+labels: ["text-update"]
+title: "[上传作品]"
 
 body:
   - type: markdown
     attributes:
       value: |
-        ## Input your Title here.
+        ## 在此处输入您的标题。
   - type: input
     id: title
     attributes:
-      label: Title
-      description: A short, descriptive title for your file.
-      placeholder: "Add a title for your file"
+      label: 标题
+      placeholder: "请输入作品标题。"
+    validations:
+      required: true
+  type: markdown
+    attributes:
+      value: |
+        ## 在此处输入作者。
+  - type: input
+    id: author
+    attributes:
+      label: 作者
+      placeholder: "请输入作者。"
     validations:
       required: true
   - type: markdown
     attributes:
       value: |
-        ## Input your context here.
+        ## 请在此处输入正文。
   - type: textarea
     id: content
     attributes:
-      label: Content
-      description: Your file context.
-      placeholder: Input your context here."
+      label: 正文
+      placeholder: 请输入正文。"
     validations:
       required: true
