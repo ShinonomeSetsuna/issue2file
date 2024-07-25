@@ -17,13 +17,13 @@ jobs:
         id: extract_data
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
-          TITLE=$(echo "$ISSUE_BODY" | grep -P (?<=### Title)(.*?)(?=### Content))
-          CONTENT=$(echo "$ISSUE_BODY" | grep -P(?<=### Content)(.*?))
+          TITLE=$(echo "$ISSUE_BODY" | grep -P '(?<=### Title)(.*?)(?=### Content))'
+          CONTENT=$(echo "$ISSUE_BODY" | grep -P '(?<=### Content)(.*?))'
           echo $TITLE
-          echo "./generated_issues/${TITLE}.txt"
+          echo './generated_issues/${TITLE}.txt'
           ls ./generated_issues
           mkdir -p ./generated_issues
-          echo "${CONTENT}" > "./generated_issues/${TITLE}.txt"
+          echo "${CONTENT}" > './generated_issues/${TITLE}.txt'
           
       - name: Commit changes
         run: |
